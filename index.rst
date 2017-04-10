@@ -3,17 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-公開文件集
-=======================================
+ho600 文件集
+================================================================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :numbered:
+    :maxdepth: 1
 
-   employment-contract
+    employment-contract
 
+本文件集置於一 git 儲存庫，其位置: git@bitbucket.org:ho600/general-affair.git/wiki 。
 
-Indices and tables
+索引與表格
 ==================
 
 * :ref:`genindex`
