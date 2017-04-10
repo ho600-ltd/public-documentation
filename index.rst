@@ -1,5 +1,5 @@
 .. public-docs documentation master file, created by
-   sphinx-quickstart on Mon Apr 10 11:50:28 2017.
+   sphinx-quickstart on Mon Apr 10 17:11:24 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -11,7 +11,6 @@
    :caption: Contents:
 
    employment-contract
-
 
 
 Indices and tables
