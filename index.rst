@@ -14,9 +14,9 @@ ho600 文件集
     :numbered:
     :maxdepth: 1
 
-    consultant-contract
-    fulltime-employment-contract
-    parttime-employment-contract
+    contracts/consultant-contract
+    contracts/fulltime-employment-contract
+    contracts/parttime-employment-contract
 
 索引與表格
 ==================
