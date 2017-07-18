@@ -18,6 +18,7 @@ ho600 文件集
     contracts/fulltime-employment-contract
     contracts/parttime-employment-contract
     contracts/consultant-contract
+    employees/register
 
 索引與表格
 ==================
