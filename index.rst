@@ -13,12 +13,19 @@ ho600 文件集
 .. toctree::
     :numbered:
     :maxdepth: 1
+    :caption: 員工相關
 
     contracts/collaboration-contract
     contracts/fulltime-employment-contract
     contracts/parttime-employment-contract
     contracts/consultant-contract
     employees/register
+
+.. toctree::
+    :maxdepth: 1
+    :caption: 各類計畫
+
+    youth-innovation-loan/index
 
 索引與表格
 ==================
