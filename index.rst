@@ -20,6 +20,7 @@ ho600 文件集
     contracts/parttime-employment-contract
     contracts/consultant-contract
     employees/register
+    employees/leave
 
 .. toctree::
     :maxdepth: 1
