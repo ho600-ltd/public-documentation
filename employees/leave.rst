@@ -12,6 +12,7 @@
 
 * email at ho600.com
 * remove bitbucket account permissions
+* remove AWS(own and customer's) account permissions
 * remove employee info on our web site
 * remove account in our deployment server
 * remove account in our VPN server
