@@ -1,3 +1,4 @@
 .py3env/
 _build/
 contracts/kizax-fulltime-employment-contract.rst
+.vscode/
