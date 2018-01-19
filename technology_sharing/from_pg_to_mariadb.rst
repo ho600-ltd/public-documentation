@@ -29,7 +29,7 @@ There are some CHARSET/COLLATION issues in Mariadb 10.2.  If we want to support 
 #. ignore the space char in the begin or end of value.
 #. case insensitive
 
-Some values in PostgreSQL are well defined unique, but it will raise IntegrityError when it is stored in MariaDB.
+In PostgreSQL, we usually use zh_TW.UTF-8, ja_JP.UTF-8 collation, and values are well defined unique, but it will raise IntegrityError when it is stored in MariaDB.
 
 So that we need to adjust some values in original PG db:
 
