@@ -46,3 +46,5 @@ ho600 文件集
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Version: 0.0.5
