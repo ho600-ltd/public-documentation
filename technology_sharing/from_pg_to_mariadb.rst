@@ -1,4 +1,4 @@
-Steps from PostgreSQL to MariaDB
+Steps for converting db from PostgreSQL to MariaDB
 ===============================================================================
 
 Our Django apps are used to connect PostgreSQL db, until we want to hire more programmers.   The reason is the same as we transfer version control tool from hg to git: MySQL/MariaDB, and git are familiar to more developers.
