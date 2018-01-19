@@ -151,10 +151,16 @@ We only change the collation in email field, becuase there are so many emails ar
     ALTER TABLE trade_consumer MODIFY COLUMN email varchar(254) COLLATE utf8_bin NOT NULL;
     ALTER TABLE maillist_recipient MODIFY COLUMN email varchar(254) COLLATE utf8_bin NOT NULL;
 
+Load json to MariaDB
+-------------------------------------------------------------------------------
+
 .. code-block:: bash
 
     ./manage.py loaddata all_exclude_maillist.json
     ./manage.py loaddata maillist.json
+
+Verify row counts
+-------------------------------------------------------------------------------
 
 Log table row counts in PG:
 
