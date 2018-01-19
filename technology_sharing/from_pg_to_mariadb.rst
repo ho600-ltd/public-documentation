@@ -1,10 +1,14 @@
 Steps from PostgreSQL to MariaDB
 ===============================================================================
 
+Our Django apps are used to connect PostgreSQL db, until we want to hire more programmers.   The reason is the same as we transfer version control tool from hg to git: MySQL/MariaDB, and git are familiar to more developers.
+
+Because Django is a strong web framework, it has a data convertion tool on json format.  We can dump data from PostgreSQL, and restore the json data to MariaDB by dumpdata/loaddata commands of Django.  Compare to commercial solutions, we can ensure that the converted data runs better on Django.
+
 In PostgreSQL side
 -------------------------------------------------------------------------------
 
-"is_suspend" is a special field in our project.  Codes as below are only working for our system.
+"is_suspend" is a special field in our project.  Codes as below are only needed for our system.
 
 .. code-block:: python
 
@@ -12,22 +16,22 @@ In PostgreSQL side
     WorkOrder.all_objects.filter(is_suspend=True).delete()
     Order.all_objects.filter(is_suspend=True).delete()
 
-Reduce the table size before dump and restore data:
+Reduce the table size before data converting:
 
 .. code-block:: sql
 
     delete from multi_sites_uniquesession where update_time < '2018-01-18 00:00:00+00:00';
     delete from django_session where expire_date < '2018-01-18 00:00:00+00:00';
 
-There are some CHARSET/COLLATION issues in Mariadb 10.2.  If we want to support "utf8mb4" charset, then we only have utf8mb4_unicode_ci collation can choose to satisfy our system requirements.  And utf8mb4_unicode_ci has a few behaviors that we don't like:
+There are some CHARSET/COLLATION issues in Mariadb 10.2.  If we want to support "utf8mb4" charset, then we only have utf8mb4_unicode_ci collation can be choosed.  And utf8mb4_unicode_ci has a few behaviors that we don't like:
 
 1. auto-convert full-width char to half-width char.
-#. ignore the space char in the begin or end of sentence.
+#. ignore the space char in the begin or end of value.
 #. case insensitive
 
 Some values in PostgreSQL are well defined unique, but it will raise IntegrityError when it is stored in MariaDB.
 
-So that we adjust some values in original PG db:
+So that we need to adjust some values in original PG db:
 
 .. code-block:: sql
 
@@ -129,7 +133,7 @@ Update DB information in settings.py. Then migrate the new db:
 
     ./manage.py migrate
 
-Our old some values' id are different with the migration, so we need to truncate data in four tables:
+The id of some old values are different form the migration, so we need to truncate data in four tables:
 
 .. code-block:: sql
 
@@ -140,7 +144,7 @@ Our old some values' id are different with the migration, so we need to truncate
     TRUNCATE TABLE auth_user;
     SET FOREIGN_KEY_CHECKS = 1;
 
-We only change the collation in email field:
+We only change the collation in email field, becuase there are so many emails are have upper and lower case in the same time:
 
 .. code-block:: sql
 
@@ -178,6 +182,7 @@ Check MariaDB table rows:
 .. code-block:: bash
 
     diff -w pg.log my.log
-    # The different counts are only involved by "is_suspend = true"
 
-Done!
+And we can see the different counts are only involved by "is_suspend = true".
+
+Hooray~ It is Done!
