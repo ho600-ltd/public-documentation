@@ -102,10 +102,10 @@ So that we need to adjust some values in original PG db:
     update trade_consumer set phone = regexp_replace(phone, '　$', ' 。') where phone ~ '　$';
     update trade_consumer set address = regexp_replace(address, '　$', ' 。') where address ~ '　$';
 
-    update trade_consumer set cellphone = '09XX-YYYYYY' where id = 10855;
-    update trade_consumer set phone = '09XX-YYYYYY' where id = 15491;
+    update trade_consumer set cellphone = concat(substring(cellphone, 0, 5), '-', substring(cellphone, 5)) where id = 10855 and cellphone not like '%-%';
+    update trade_consumer set phone = concat(substring(phone, 0, 5), '-', substring(phone, 5)) where id = 15491 and phone not like '%-%';
 
-    update maillist_recipient set email = 'ZZZZ000@ZZZ.com.tw' where email = 'zzzz000@ZZZ.com.tw ';
+    update maillist_recipient set email = upper(email) where id = 166888 and upper(email) != email;
 
 Dump json from PG
 -------------------------------------------------------------------------------
