@@ -178,17 +178,37 @@ Check MariaDB table rows:
 
 .. code-block:: sql
 
-    \T "count_mysql.sql";
-    SELECT concat('SELECT concat(''', TABLE_NAME, ''', '', '', count(*)) from ', TABLE_NAME, ';') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'ec_bio_enzyme_com' order by TABLE_ROWS;
+    \T count_mysql.sql
+    SELECT concat('SELECT concat(''', TABLE_NAME, ''', '', '', count(*)) from ', TABLE_NAME, ';') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'ec_bio_enzyme_com' order by TABLE_NAME;
 
 .. code-block:: bash
 
-    ./manage.py dbshell < count_pg.sql | grep ", [0-9]" > my.log
+    ./manage.py dbshell < count_mysql.sql | grep ", [0-9]" > my.log
 
 .. code-block:: bash
 
     diff -w pg.log my.log
+        18c18
+        < back_operator_workorderhistoryproduct, 25927
+        ---
+        > back_operator_workorderhistoryproduct, 25786
+        31c31
+        < db_cache, 124
+        ---
+        > db_cache, 0
+        34c34
+        < django_migrations, 53
+        ---
+        > django_migrations, 55
+        94c94
+        < trade_htmlcontent, 5949
+        ---
+        > trade_htmlcontent, 5948
+        101c101
+        < trade_product, 88
+        ---
+        > trade_product, 86
 
-And we can see the different counts are only involved by "is_suspend = true".
+Except db_cache, django_migrations tables(dumpdata ignores those), we can see the different counts are only involved by "is_suspend = true".
 
 Hooray~ It is Done!
