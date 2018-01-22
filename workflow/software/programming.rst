@@ -78,7 +78,8 @@ SOP on branch and merge
         * step 3-b, push the new prXX-<assignee>-master branch
         * step 4-b, create another pull request(from this prXX-<assignee>-master into master)
         * step 5-b, check the "conflict status" of the new pull request YY, if it has no conflict sources, then **approve this pull reqeust YY** and pass the issue about this pull request to reviewer
-#. The reviewers(Administrators) can check the codes in pull request, the reviewers should **approve** this pull request if all reviewers confirm this pull request.  Then merge it, and we can schedule a date to deploy this new merge to productional web site
+#. The reviewers(Administrators) can check the codes in pull request, the reviewers should **approve** this pull request if all reviewers confirm this pull request.  Then merge it, and deploy this new merge commit with deployment server(Jenkins or Buildbot) for testing.
+#. Schedule a date to deploy this new merge to productional web site
 #. If new source code serving well, then resolve the issue, otherwise run the above steps again
 
 專案儲存庫及文件儲存庫
