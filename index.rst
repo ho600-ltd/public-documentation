@@ -21,6 +21,7 @@ ho600 文件集
     contracts/consultant-contract
     employees/register
     employees/leave
+    year-end-party/rooster
 
 .. toctree::
     :maxdepth: 1
