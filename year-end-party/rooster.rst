@@ -41,6 +41,7 @@ lucky_draw_amount 函式的輸出值即為可兌獎金額。員工自選獎品�
 * http://www.books.com.tw/
 * http://www.momoshop.com.tw/index.html
 * https://www.trplus.com.tw/
+* https://www.apple.com/tw_smb_101387/shop
 
 將挑選商品的展示連結(可下單、有價格的連結)集結起來，\
 加上『預估總訂單金額(要含運費、購物手續費…)』，\
