@@ -75,6 +75,23 @@ key id(CFE87F74B7DE1A6A0599DB9AEAB2EB91CABF4281) 的獎品明細:
     =bFce
     -----END PGP SIGNATURE-----
 
+key id(202AF629DF94884E77287E6445B9609A64A13A7C) 的獎品明細:
+
+.. code-block:: txt
+
+    -----BEGIN PGP SIGNED MESSAGE-----
+    Hash: SHA256
+
+    https://24h.pchome.com.tw/prod/DCAH0X-A90084FN6?q=/S/DCAHDS 英文版*1
+    預估總訂單金額為 3,190 元
+    -----BEGIN PGP SIGNATURE-----
+
+    iHUEAREIAB0WIQQgKvYp35SITncofmRFuWCaZKE6fAUCWoBSPQAKCRBFuWCaZKE6
+    fDKyAP9hRGSTPvzolk7EumfC3LlNbsTcB0ffMrF2XO5T5MYNEQEAhtKJGrRPAdVN
+    hX32zmuW4D7k3hC38wPTK3tJlks/KWY=
+    =vMY5
+    -----END PGP SIGNATURE-----
+
 但書
 -------------------------------------------------------------------------------
 
