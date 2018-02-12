@@ -53,70 +53,6 @@ lucky_draw_amount 函式的輸出值即為可兌獎金額。員工自選獎品�
 員工自選獎品明細
 -------------------------------------------------------------------------------
 
-Key id(CFE87F74B7DE1A6A0599DB9AEAB2EB91CABF4281) 的獎品明細:
-
-.. code-block:: txt
-
-    -----BEGIN PGP SIGNED MESSAGE-----
-    Hash: SHA256
-
-    http://24h.pchome.com.tw/prod/DHAY1W-19008N91N 乘以 2 台，約 19,999*2 = 39,998 元
-    http://24h.pchome.com.tw/prod/DHAY1T-A90087E0U 約 41,888 元
-    預估總訂單金額為 81,886 元
-    -----BEGIN PGP SIGNATURE-----
-
-    iQEzBAEBCAAdFiEEz+h/dLfeGmoFmdua6rLrkcq/QoEFAlp/uMUACgkQ6rLrkcq/
-    QoEMSggAlm075/zcKu/L5TIPjfj0avK86Tn73/S3BpKo2PBmZAhjN36BvG8ZUkon
-    Xp4AJ9+d5kjkgzLyTPPOtnjTMxisoY8wbty0su4P2agI/uFIyompW9QwUMoe7Aqp
-    0NqinyoO4PB9Nx8ZXFQWtYxscqQHpEB3IXQydwClCi7/66IX3qhGVxSur4b8twfA
-    MxXwyc5jJB8cMP5or4ehb5KytE9uXIkVEJM6YTwUqRsUyizSwpvsa+DD2uGPPtFE
-    W7JUUx9H1v8uDu3f9oiJrYaqk+7xQnQ7nZZbFWthwuZ264j2+0yk9WZNFgRUZl3k
-    xH7rijFT0uaegxrRANM5ChwUqikw+g==
-    =bFce
-    -----END PGP SIGNATURE-----
-
-Key id(202AF629DF94884E77287E6445B9609A64A13A7C) 的獎品明細:
-
-.. code-block:: txt
-
-    -----BEGIN PGP SIGNED MESSAGE-----
-    Hash: SHA256
-
-    https://24h.pchome.com.tw/prod/DCAH0X-A90084FN6?q=/S/DCAHDS 英文版*1
-    預估總訂單金額為 3,190 元
-    -----BEGIN PGP SIGNATURE-----
-
-    iHUEAREIAB0WIQQgKvYp35SITncofmRFuWCaZKE6fAUCWoBSPQAKCRBFuWCaZKE6
-    fDKyAP9hRGSTPvzolk7EumfC3LlNbsTcB0ffMrF2XO5T5MYNEQEAhtKJGrRPAdVN
-    hX32zmuW4D7k3hC38wPTK3tJlks/KWY=
-    =vMY5
-    -----END PGP SIGNATURE-----
-
-Key id(D2D899B1F7FB656E) 的獎品明細:
-
-.. code-block:: txt
-
-    -----BEGIN PGP SIGNED MESSAGE-----
-    Hash: SHA1
-
-    https://www.apple.com/tw_smb_101387/shop/product/HL5B2ZM/A/twelve-south-parcslope-%E7%AB%8B%E6%9E%B6-%E9%81%A9%E7%94%A8%E6%96%BC-macbook-%E8%88%87-ipad-pro?fnode=8a
-
-    約 1750 元
-    https://www.apple.com/tw_smb_101387/shop/buy-tv/apple-tv-4k/32gb + AppleCare Protection Plan 約 5990+1090 元
-
-    總訂單約 8830 元
-    -----BEGIN PGP SIGNATURE-----
-    Version: GnuPG v1
-
-    iQEcBAEBAgAGBQJagPEsAAoJENLYmbH3+2Vu5u8H/An/eDsiSWJ6HgTiMqJtZrcW
-    KYg2XXZTvcLHCDyyXZeAgtCB4C8JPqcqVWIIDB3PjUNc9jPLHxNWA7sUIgI0/fJP
-    WxVs4mj5lDsWMYEnYaOQvzAX2kRUwbOqdoxFywA0mG8FVjbBBJxloy3fluvuTgdJ
-    PVxQ9sXBmTwtU2R0oqA9loVKEGbZk8IRppEdNeyB3vomfqloE0ZvAgEX3qXBytkH
-    G3Pt+MFOkrclR5w8L86ndBCIdggPsOd3Bihmq3VaeCGp0xXrmV3XTzzQmJEyevZ4
-    5fcs5y/c59YWb1GieIU6gCBX52u9ZQR6BW7VPEkshSmsF7NjnUsILk7/czX3jKI=
-    =/Rd8
-    -----END PGP SIGNATURE-----
-
 Key id(5C4561A4595374F2) 的獎品明細:
 
 .. code-block:: txt
@@ -144,6 +80,31 @@ Key id(5C4561A4595374F2) 的獎品明細:
     =IDiy
     -----END PGP MESSAGE-----
 
+Key id(D2D899B1F7FB656E) 的獎品明細:
+
+.. code-block:: txt
+
+    -----BEGIN PGP SIGNED MESSAGE-----
+    Hash: SHA1
+
+    https://www.apple.com/tw_smb_101387/shop/product/HL5B2ZM/A/twelve-south-parcslope-%E7%AB%8B%E6%9E%B6-%E9%81%A9%E7%94%A8%E6%96%BC-macbook-%E8%88%87-ipad-pro?fnode=8a
+
+    約 1750 元
+    https://www.apple.com/tw_smb_101387/shop/buy-tv/apple-tv-4k/32gb + AppleCare Protection Plan 約 5990+1090 元
+
+    總訂單約 8830 元
+    -----BEGIN PGP SIGNATURE-----
+    Version: GnuPG v1
+
+    iQEcBAEBAgAGBQJagPEsAAoJENLYmbH3+2Vu5u8H/An/eDsiSWJ6HgTiMqJtZrcW
+    KYg2XXZTvcLHCDyyXZeAgtCB4C8JPqcqVWIIDB3PjUNc9jPLHxNWA7sUIgI0/fJP
+    WxVs4mj5lDsWMYEnYaOQvzAX2kRUwbOqdoxFywA0mG8FVjbBBJxloy3fluvuTgdJ
+    PVxQ9sXBmTwtU2R0oqA9loVKEGbZk8IRppEdNeyB3vomfqloE0ZvAgEX3qXBytkH
+    G3Pt+MFOkrclR5w8L86ndBCIdggPsOd3Bihmq3VaeCGp0xXrmV3XTzzQmJEyevZ4
+    5fcs5y/c59YWb1GieIU6gCBX52u9ZQR6BW7VPEkshSmsF7NjnUsILk7/czX3jKI=
+    =/Rd8
+    -----END PGP SIGNATURE-----
+
 Key id(92A30B9DB0F99CBF06CAFD7C15536A7D4F1067AB) 的獎品明細:
 
 .. code-block:: txt
@@ -170,6 +131,22 @@ Key id(92A30B9DB0F99CBF06CAFD7C15536A7D4F1067AB) 的獎品明細:
     =A2fK
     -----END PGP SIGNATURE-----
 
+Key id(202AF629DF94884E77287E6445B9609A64A13A7C) 的獎品明細:
+
+.. code-block:: txt
+
+    -----BEGIN PGP SIGNED MESSAGE-----
+    Hash: SHA256
+
+    https://24h.pchome.com.tw/prod/DCAH0X-A90084FN6?q=/S/DCAHDS 英文版*1
+    預估總訂單金額為 3,190 元
+    -----BEGIN PGP SIGNATURE-----
+
+    iHUEAREIAB0WIQQgKvYp35SITncofmRFuWCaZKE6fAUCWoBSPQAKCRBFuWCaZKE6
+    fDKyAP9hRGSTPvzolk7EumfC3LlNbsTcB0ffMrF2XO5T5MYNEQEAhtKJGrRPAdVN
+    hX32zmuW4D7k3hC38wPTK3tJlks/KWY=
+    =vMY5
+    -----END PGP SIGNATURE-----
 
 但書
 -------------------------------------------------------------------------------
