@@ -1,3 +1,5 @@
+*.pyc
+__pycache__
 .py3env/
 _build/
 contracts/kizax-fulltime-employment-contract.rst
