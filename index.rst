@@ -27,6 +27,7 @@ ho600 文件集
     :maxdepth: 1
     :caption: 工作流程
 
+    workflow/system/keys
     workflow/software/programming
 
 .. toctree::
