@@ -28,6 +28,7 @@ ho600 文件集
     :caption: 工作流程
 
     workflow/system/keys
+    workflow/software/working_environment
     workflow/software/programming
 
 .. toctree::
