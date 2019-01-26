@@ -120,3 +120,89 @@ Bitbucket/Github 都有在專案中分離 wiki 為獨立的儲存庫，我們會
 
 1. 不同平台對 shell 的設定是有差別的，如: Windows/MacOS 在 PATH 變數上的設定，皆需由使用者自行設定，與其依賴手動調整，不如全套用 virtualenv 的環境，讓 virtualenv 自動化設定。
 #. 開發環境在使用 virtualenv 後，可方便其他開發人員快速建置自己的開發環境，且系統在發佈時，也需有一「正確」的執行環境，利用 virtualenv + requirements.txt 可降低發佈失敗率
+
+Use VisualStudioCode as default IDE
+--------------------------------------------------------------------------------
+
+Recommend plugins:
+
+* Code Outline
+* Django
+* Django Template
+* gettext
+* Python
+* Python for VSCode
+* reStructuredText
+* Vim
+* vscode-icons
+
+User settings sample:
+
+.. code-block:: json
+
+    {
+        "editor.fontSize": 14,
+        "editor.fontFamily": "'Noto Sans Mono CJK TC'",
+        "editor.renderWhitespace": "boundary",
+        "editor.rulers": [
+            80, 100
+        ],
+        "editor.minimap.enabled": false,
+        "editor.wordWrap":"on",
+        "extensions.ignoreRecommendations": false,
+        "files.autoSave": "afterDelay",
+        "git.ignoreLimitWarning": true,
+        "gitlens.keymap": "none",
+        "gitlens.advanced.messages": {
+            "suppressCommitHasNoPreviousCommitWarning": false,
+            "suppressCommitNotFoundWarning": false,
+            "suppressFileNotUnderSourceControlWarning": false,
+            "suppressGitVersionWarning": false,
+            "suppressLineUncommittedWarning": false,
+            "suppressNoRepositoryWarning": false,
+            "suppressUpdateNotice": false,
+            "suppressShowKeyBindingsNotice": true,
+            "suppressWelcomeNotice": true
+        },
+        "html.format.enable": true,
+        "python.autoComplete.extraPaths": [
+            "${workspaceRoot}/.py3env/lib/python3.6",
+            "${workspaceRoot}/.py3env/lib/python3.6/site-packages"
+        ],
+        "python.linting.enabled": true,
+        "python.formatting.provider": "autopep8",
+        "python.pythonPath": "${workspaceRoot}/.py3env/bin/python",
+        "restructuredtext.builtDocumentationPath": "${workspaceRoot}/docs/_build/html",
+        "restructuredtext.confPath": "${workspaceRoot}/docs",
+        "restructuredtext.updateOnTextChanged": "true",
+        "vim.easymotion": true,
+        "vim.incsearch": true,
+        "vim.useSystemClipboard": false,
+        "vim.useCtrlKeys": true,
+        "vim.hlsearch": true,
+        "vim.searchHighlightColor": "rgba(250, 250, 0, 0.3)",
+        "vim.cmdLineInitialColon": true,
+        "vim.visualModeKeyBindingsNonRecursive": [
+            { "before": ["0"], "after": ["g", "0"] },
+            { "before": ["$"], "after": ["g", "$"] },
+            { "before": ["j"], "after": ["g", "j"] },
+            { "before": ["k"], "after": ["g", "k"] }
+        ],
+        "vim.statusBarColorControl": true,
+        "vim.statusBarColors.normal": "#005f5f",
+        "vim.statusBarColors.insert": "#5f0000",
+        "vim.statusBarColors.visual": "#5f00af",
+        "vim.statusBarColors.visualline": "#005f87",
+        "vim.statusBarColors.visualblock": "#86592d",
+        "vim.statusBarColors.replace": "#000000",
+        "workbench.activityBar.visible": true,
+        "workbench.colorCustomizations": {
+            "statusBar.background": "#005f87",
+            "statusBar.noFolderBackground": "#005f87",
+            "statusBar.debuggingBackground": "#005f87"
+        },
+        "workbench.panel.defaultLocation": "bottom",
+        "workbench.iconTheme": "vscode-icons",
+        "window.zoomLevel": 0,
+        "vsicons.dontShowNewVersionMessage": true
+    }
