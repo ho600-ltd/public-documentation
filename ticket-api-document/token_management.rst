@@ -44,11 +44,16 @@ token 與登入者身份之間的關連
     雖然上面這種帶有個人 token 的附件下載網址可以讓任何使用者不用登入就可以下載附件，\
     但這違反了一個規則： **絕對不要讓別人知道你個人的 token** 。
 
-    比較好的做法是，要在 trask.com 開發一個網頁，將 https://dev-rx.ho600.com/download_attachment/32733/?token=sdfc088af094a4f61f3710724c3fa0863c35c47d \
-    重導向的附件真正的下載網址抓回來，trask.com 必須要將這個網址直接告訴使用者，\
-    **絕對不能夠提供給使用者任何含有 token 的網址提供給使用者** 。
-
-
+    比較好的做法是，要在 trask.com 開發一個網頁，像是: https://trask.com/download.php ，\
+    對 trask 使用者來說，他／她看到的檔案網址是 https://trask.com/download.php?file_id=32733 。\
+    當他／她點擊 https://trask.com/download.php?file_id=32733 後， download.php \
+    內的程式碼會先判斷使用者是否登入、有沒有權限有下載、檔案紀錄存不存在、…等，\
+    確認可下載後，在 download.php 中要去讀取 https://dev-rx.ho600.com/download_attachment/32733/?token=sdfc088af094a4f61f3710724c3fa0863c35c47d ，
+    並得到 ticket 系統所回傳的 AWS S3 或 Google Cloud Storage 網址(如: https://dev-sr-ticket2.s3.amazonaws.com/media/private_uploaded_files/YANX/FANW/IRDP/leopard-leopard-spots-animal-wild-39857.jpeg?AWSAccessKeyId=AKIAIV2WIS2GLO3XSNTA&Signature=LezqUYT8LczjoF%2Fk9Mkbi9%2BQcB0%3D&Expires=1550218302 \
+    或 \
+    https://commondatastorage.googleapis.com/dev-sr-associate-ticket/ticket-attachments/00/00/00/36/00/09/20190215080431.904598/antler-antler-carrier-fallow-deer-hirsch.jpg ) 。\
+    最後把這個附件真正存放的網址回傳給告訴使用者，讓使用者直接到 AWS S3 或 GCS 下載。\
+    **絕對不能夠提供給使用者任何含有 token 的 ticket 網址** 。
 
 如何取得個人 token
 -------------------------------------------------------------------------------
