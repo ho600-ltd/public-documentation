@@ -45,7 +45,7 @@ ho600 文件集
 
 .. toctree::
     :maxdepth: 1
-    :caption: ticket 文件
+    :caption: Ticket 系統說明文件
 
     ticket-api-document/token_management
     ticket-api-document/create_project
