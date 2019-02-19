@@ -7,11 +7,7 @@ token 與登入者身份之間的關連
 
 每個人皆有一個獨一無二的 token，這個 token 可以拿來做身份驗證。
 
-使用者未登入的狀況下可將 token 當成 query parameter 帶入，如以下形式：
-
-.. code-block:: txt
-
-    https://dev-rx.ho600.com/ticket/api/v2/ticket/?token=abbc088af094a4f61f3710724c3fa0863c35c47d
+使用者未登入的狀況下可將 header 設成 Authorization: Token <personal_token>
 
 如果 token 正確，伺服器會將這次的連線當成是 **該 token 對應的使用者** 發送的。
 
@@ -37,18 +33,12 @@ token 與登入者身份之間的關連
     使用者未登入的話，https://dev-rx.ho600.com/download_attachment/32733/ 會將使用者導向登入頁，\
     登入過後會直接重導向到該附件真正的下載網址。
 
-    當在 trask.com 提供給使用者 ticket 系統上附件的下載網址時，不能夠給予像下面這種，帶有個人 token 的連結：
-
-    https://dev-rx.ho600.com/download_attachment/32733/?token=sdfc088af094a4f61f3710724c3fa0863c35c47d
-
-    雖然上面這種帶有個人 token 的附件下載網址可以讓任何使用者不用登入就可以下載附件，\
-    但這違反了一個規則： **絕對不要讓別人知道你個人的 token** 。
-
+    當在 trask.com 提供給使用者 ticket 系統上附件的下載網址時，\
     比較好的做法是，要在 trask.com 開發一個網頁，像是: https://trask.com/download.php ，\
     對 trask 使用者來說，他／她看到的檔案網址是 https://trask.com/download.php?file_id=32733 。\
     當他／她點擊 https://trask.com/download.php?file_id=32733 後， download.php \
     內的程式碼會先判斷使用者是否登入、有沒有權限有下載、檔案紀錄存不存在、…等，\
-    確認可下載後，在 download.php 中要去讀取 https://dev-rx.ho600.com/download_attachment/32733/?token=sdfc088af094a4f61f3710724c3fa0863c35c47d ，
+    確認可下載後，在 download.php 中要去讀取 https://dev-rx.ho600.com/download_attachment/32733/ ，
     並得到 ticket 系統所回傳的 AWS S3 或 Google Cloud Storage 網址(如: https://dev-sr-ticket2.s3.amazonaws.com/media/private_uploaded_files/YANX/FANW/IRDP/leopard-leopard-spots-animal-wild-39857.jpeg?AWSAccessKeyId=AKIAIV2WIS2GLO3XSNTA&Signature=LezqUYT8LczjoF%2Fk9Mkbi9%2BQcB0%3D&Expires=1550218302 \
     或 \
     https://commondatastorage.googleapis.com/dev-sr-associate-ticket/ticket-attachments/00/00/00/36/00/09/20190215080431.904598/antler-antler-carrier-fallow-deer-hirsch.jpg ) 。\
