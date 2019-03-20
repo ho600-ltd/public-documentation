@@ -30,6 +30,7 @@ ho600 文件集
     workflow/system/keys
     workflow/software/keys_in_working_environment
     workflow/software/programming
+    workflow/software/sop_in_backend_programming_with_restframework
 
 .. toctree::
     :maxdepth: 1
