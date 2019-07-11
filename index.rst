@@ -37,6 +37,7 @@ ho600 文件集
     :caption: 技術短文
 
     technology_sharing/from_pg_to_mariadb
+    technology_sharing/how_to_get_a_plus_rating_on_ssllabs_com
 
 .. toctree::
     :maxdepth: 1
