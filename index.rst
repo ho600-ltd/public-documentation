@@ -51,7 +51,6 @@ ho600 文件集
 
     ticket-api-document/token_management
     ticket-api-document/create_project
-    issues/how_to_get_a_plus_rating_on_ssllabs_com.rst
 
 索引與表格
 ==================
