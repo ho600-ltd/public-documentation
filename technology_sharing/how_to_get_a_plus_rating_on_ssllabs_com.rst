@@ -21,7 +21,7 @@
 此舉會令 ssllabs 回報 Server providers more than one HSTS header 訊息，\
 致使只拿到 A 級分。
 
-以下是 https://www.ssllabs.com/ssltest/analyze.html?d=www.ho600.com 的結果:
+以下是 https://www.ssllabs.com/ssltest/analyze.html?d=www.ho600.tw 的結果:
 
 .. figure:: how_to_get_a_plus_rating_on_ssllabs_com/1.png
 
@@ -29,7 +29,6 @@
 
 .. code-block:: ini
 
-    #ssl_protocols TLSv1.3 TLSv1.2 TLSv1.1;
     ssl_protocols TLSv1.2 TLSv1.3; # TLSv1.3 requires nginx >= 1.13.0 else use TLSv1.2
 
     ssl_dhparam /etc/ssl/certs/certsdhparam-20190718.pem; # openssl dhparam -out /etc/nginx/dhparam.pem 4096
@@ -46,7 +45,7 @@
 
     ssl_ecdh_curve secp384r1; # Requires nginx >= 1.1.0
     ssl_session_timeout  10m;
-    ssl_session_tickets off; # Requires nginx >= 1.5.9
+    ssl_session_tickets off; # Requires nginx >= 1.5.9, but I set ssl_session_tickets to "off" in nginx==1.10 will broken a few browsers' https connection, and if set this settings in nginx==1.14, it will be fine.
 
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-Content-Type-Options nosniff;
