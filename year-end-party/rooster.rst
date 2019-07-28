@@ -55,7 +55,7 @@ lucky_draw_amount 函式的輸出值即為可兌獎金額。員工自選獎品�
 
 Key id(5C4561A4595374F2) 的獎品明細:
 
-.. code-block:: txt
+.. code-block:: text
 
     https://24h.pchome.com.tw/prod/DGCC77-A9008E3T9 9480*1
     預估總訂單金額為 9480 元
@@ -82,7 +82,7 @@ Key id(5C4561A4595374F2) 的獎品明細:
 
 Key id(D2D899B1F7FB656E) 的獎品明細:
 
-.. code-block:: txt
+.. code-block:: text
 
     -----BEGIN PGP SIGNED MESSAGE-----
     Hash: SHA1
@@ -107,7 +107,7 @@ Key id(D2D899B1F7FB656E) 的獎品明細:
 
 Key id(92A30B9DB0F99CBF06CAFD7C15536A7D4F1067AB) 的獎品明細:
 
-.. code-block:: txt
+.. code-block:: text
 
     -----BEGIN PGP SIGNED MESSAGE-----
     Hash: SHA256
@@ -133,7 +133,7 @@ Key id(92A30B9DB0F99CBF06CAFD7C15536A7D4F1067AB) 的獎品明細:
 
 Key id(202AF629DF94884E77287E6445B9609A64A13A7C) 的獎品明細:
 
-.. code-block:: txt
+.. code-block:: text
 
     -----BEGIN PGP SIGNED MESSAGE-----
     Hash: SHA256

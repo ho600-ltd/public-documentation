@@ -19,6 +19,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import datetime
 
 
 # -- General configuration ------------------------------------------------
@@ -53,9 +54,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'public-docs'
-copyright = u'2017 ~ 2019, ho600'
-author = u'ho600'
+project = "ho600's public-docs"
+author = 'ho600'
+copyright = '2017 ~ {}, {}'.format(datetime.datetime.now().strftime('%Y'), author)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
