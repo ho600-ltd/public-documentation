@@ -95,10 +95,10 @@
 
 PGP 私錀遺失:
 
-在 PGP 私錀遺失且無法回復後，必須對敝司系統開發過程中所使用之設定檔 *-settings.py.gpg 進行重新解密，\
+在 PGP 私錀遺失且無法回復後，必須對敝司系統開發過程中所使用之設定檔 \*-settings.py.gpg 進行重新解密，\
 再以新 PGP 公錀做加密後，更新回版本控制器中。
 
-通常敝司的做法是 live branch 及 test branch 各有一個 *-settings.py.gpg ，\
+通常敝司的做法是 live branch 及 test branch 各有一個 \*-settings.py.gpg ，\
 各自在 live / test branch 做解密、加密即可。
 
 SSH 私錀遺失:
