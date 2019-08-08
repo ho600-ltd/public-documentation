@@ -164,7 +164,7 @@ Verify row counts
 
 Log table row counts in PG:
 
-.. code-block:: sql
+.. code-block:: psql
 
     \o 'count_pg.sql';
     SELECT concat('SELECT concat(''', relname, ''', '', '', count(*)) from ', relname, ';') FROM pg_stat_user_tables ORDER BY relname;
@@ -176,7 +176,7 @@ Log table row counts in PG:
 
 Check MariaDB table rows:
 
-.. code-block:: sql
+.. code-block:: psql
 
     \T count_mysql.sql
     SELECT concat('SELECT concat(''', TABLE_NAME, ''', '', '', count(*)) from ', TABLE_NAME, ';') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'ec_bio_enzyme_com' order by TABLE_NAME;

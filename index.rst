@@ -24,6 +24,13 @@ ho600 文件集
     year-end-party/rooster
 
 .. toctree::
+    :numbered:
+    :maxdepth: 1
+    :caption: 管理相關
+
+    managements/2018-07-27-2019-07-26-working-hours-statistic
+
+.. toctree::
     :maxdepth: 1
     :caption: 工作流程
 
