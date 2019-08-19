@@ -8,7 +8,7 @@ ho600 文件集
 
 本文件集置於一 git 儲存庫 https://github.com/ho600-ltd/public-documentation.git 。
 
-文件集的公開展示網址為 http://ho600.readthedocs.io/ 。
+文件集的公開展示網址為 http://ho600.rtfd.io/ 。
 
 .. toctree::
     :numbered:
