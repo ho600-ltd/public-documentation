@@ -19,7 +19,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import datetime
+import datetime, git
 
 
 # -- General configuration ------------------------------------------------
@@ -55,8 +55,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = "ho600's public-docs"
-author = 'ho600'
-copyright = '2017 ~ {}, {}'.format(datetime.datetime.now().strftime('%Y'), author)
+author = 'ho600 Ltd.'
+repo = git.Repo(search_parent_directories=True)
+sha = repo.head.object.hexsha
+commit_hash = sha[:4]
+NOW = datetime.datetime.now()
+tm_ymin = NOW.timetuple().tm_yday * 1440 + int(NOW.strftime('%H')) * 60 + int(NOW.strftime('%M'))
+build_version = '{}-{}'.format(hex(tm_ymin)[2:], commit_hash)
+copyright = '2017 ~ {}, {} (Build No.: {})'.format(NOW.strftime('%Y'), author, build_version)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
