@@ -1,8 +1,39 @@
 創建「付款按鈕」
 -------------------------------------------------------------------------------
 
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button01.png
 
-將商品加入購物車按鈕的源始碼:
+    完成註冊後，可直接設定收款資訊
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button02.png
+
+    或是從後台連結進入「設定收款頁」，主要有兩種: 付款按鈕、以信件傳送收款連結
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button03.png
+
+    「付款按鈕」可直接要求「付款方以 PayPal 帳戶支付」，或是先列出「信用卡付款選項供付款方選擇」
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button04.png
+
+    Option A 是與「電子商務系統」整合，非本文說明範圍。請使用 Option B
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button05.png
+
+    設定按鈕: 選擇「直接購買」按鈕形式，並有兩種尺寸供購買者選取、運費另加、 10% 稅金等
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button06.png
+
+    可觀看「按鈕實際在網頁上的形式」。複製左側源始碼到自己的網頁上，即可顯示如右側的按鈕
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button07.png
+
+    瀏覽已創建的付款按鈕
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button08.png
+
+    瀏覽按鈕的源始碼
+
+若是使用「將商品加入購物車按鈕」，其源始碼範例如下:
 
 .. code-block:: html
 
@@ -20,7 +51,7 @@
     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
     </form>
 
-將以上程式碼複製貼上你的網頁，其顯示成果如下灰色區塊:
+將以上程式碼複製貼上你的網頁，其顯示成果如下灰色區塊( **按鈕可實際操作** ):
 
 .. raw:: html
 
@@ -40,7 +71,11 @@
     </form>
     </div>
 
-瀏覽購物車按鈕的源始碼:
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button09.png
+
+    在「瀏覽加入購物車按鈕源始碼的下方」有「創建瀏覽購物車按鈕」的設定
+
+創建瀏覽購物車按鈕後，可見源始碼範例如下:
 
 .. code-block:: html
 
@@ -51,7 +86,7 @@
     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
     </form>
 
-將以上程式碼複製貼上你的網頁，其顯示成果如下灰色區塊:
+將以上程式碼複製貼上你的網頁，其顯示成果如下灰色區塊( **按鈕可實際操作** ):
 
 .. raw:: html
 
