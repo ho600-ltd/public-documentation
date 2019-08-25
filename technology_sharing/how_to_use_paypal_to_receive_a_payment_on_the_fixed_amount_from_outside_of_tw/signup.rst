@@ -29,7 +29,7 @@
 
 .. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/signup/signup07.png
 
-    同意 FACTA 聲明及其他事項
+    同意 FACTA 聲明及其他事項， **請注意** 個人身份與企業資料須正確填寫，這與將來從 PayPal 帳戶提款至本國銀行帳戶相關，填錯，可導致無法提款的風險
 
 .. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/signup/signup08.png
 
