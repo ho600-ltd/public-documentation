@@ -51,11 +51,11 @@
 
 .. include:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_email.rst
 
-.. include:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/payment_page.rst
-
 結論
 -------------------------------------------------------------------------------
 
 以上簡單介紹在固定收費金額下，設定「付款按鈕」及「收款信件」的操作流程。\
+當付款方完成付款動作後， PayPal 會以信件通知你。
+
 若你需要的是「付款方在支付當下，因環境條件有所不同的收款方式」，\
 則需要連結其他電子商務系統方能達成，這又是另外一個課題。敬請拭目以待。

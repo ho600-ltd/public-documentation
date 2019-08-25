@@ -98,3 +98,7 @@
     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
     </form>
     </div>
+
+.. figure:: how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw/create_button/create_button10.png
+
+    付款方所見的購物車頁
