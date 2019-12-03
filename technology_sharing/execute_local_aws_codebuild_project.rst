@@ -112,6 +112,127 @@ line 29 則是本文件庫所需引入的相依函式庫，內容物通常只有
 在命令列執行 local codebuild 作業
 -------------------------------------------------------------------------------
 
+AWS codebuild 執行建置作業是以 Docker 為基礎，\
+每一次的建置都是拿某個 Docker image 生成的 container 來執行 buildspec.yml 中的步驟，\
+敝司預設是使用 Ubuntu 18.04 的 \
+`aws/codebuild/standard:2.0 <https://github.com/aws/aws-codebuild-docker-images/tree/master/ubuntu/standard/2.0>`_ \
+映像檔(image)。如果程式碼是基於 Windows 或其他平台開發，\
+也有 `其他映像檔 <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html>`_ 可以挑選。
+
+而在本機端執行 codebuild 建置時，它也是以 Docker 為基礎作建置，\
+所以是啟動一個 Docker container 去啟動另一個 Docker container 來執行 buildspec.yml 設定。\
+當然，若是你的建置作業成果就是要打造一個 Docker image ，\
+那就有 3 層 Docker container 同時在本機端運作。
+
+最初始在本機端執行的 Docker container 只有 1 種 image 可供使用: `amazon/aws-codebuild-local <https://hub.docker.com/r/amazon/aws-codebuild-local/>`_ 。嚴格地講，\
+你高興的話也能參考 amazon/aws-codebuild-local image 去打造自己的 image ，只是沒什麼必要。\
+這個初始階段的 container 不過是一個啟動建置用 container 的角色，建置用 container 才是關鍵，\
+建置用 container 受程式碼語言限制，要編譯 java ，那就得有 javac ；要處理 Django-based 專案，\
+那就得安裝 Django ；初始啟動用的 container 用用 Amazon 官方提供的就行了。
+
+.. note::
+
+    這裡假設讀者已了解 Docker 入門應用: 安裝、執行等。
+
+使用 Amazon 官方的 amazon/aws-codebuild-local 映像檔，很簡單，執行下列命令:
+
+.. code-block:: bash
+
+    $ docker pull amazon/aws-codebuild-local:latest --disable-content-trust=false
+
+但不執行上述命令，也是可以的，因為在接下來的 codebuild_build.sh 執行過程中，\
+發現你還沒有 amazon/aws-codebuild-local 的映像檔，它也是會詢問你要不要下載。
+
+本機要使用的「建置用的 container image 」就得從 Dockerfile 自行 build ，\
+請上 AWS 官方儲存庫 `aws/aws-codebuild-docker-images <https://github.com/aws/aws-codebuild-docker-images/>`_ ，\
+敝司使用 ubuntu/standard/2.0/Dockerfile 來 build 建置用 container image :
+
+.. code-block:: bash
+
+    $ git clone git@github.com:aws/aws-codebuild-docker-images.git
+    $ cd aws-codebuild-docker-images/ubuntu/standard/2.0/
+    $ docker build -t aws/codebuild/ubuntu:std2.0 .
+
+這個 build 步驟會花不少時間。 build 後，可以列表出來了解:
+
+.. code-block:: bash
+
+    $ docker images
+    REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
+    aws/codebuild/ubuntu         std2.0              b11b09aa6635        4 days ago          8.07GB
+    amazon/aws-codebuild-local   latest              b0bdf3d66f0e        4 months ago        563MB
+
+要啟動這個本機端 codebuild 作業，可以透過 `aws-codebuild-docker-images/local_builds/codebuild_build.sh <https://github.com/aws/aws-codebuild-docker-images/blob/master/local_builds/codebuild_build.sh>`_ 來執行:
+
+.. code-block:: bash
+
+    $ ~/bin/codebuild_build.sh \
+    -i "aws/codebuild/ubuntu:std2.0" \
+    -a out/ \
+    -e variables.env \
+    -s REPO_1/ \
+    -b REPO_1/docs/buildspec.yml \
+    -s repo_2:REPO_2 \
+    -c ~/.aws/
+
+**請注意** ，指令中的 REPO_1/ 與 REPO_2/ 中檔案都是以「複製(copy)」的方式被載入進 \
+"aws/codebuild/ubuntu:std2.0" container 中，\
+所以若是內有不需要的大檔案(例: sql dump file, virtualenv dir)，\
+要挪到 REPO_1/, REPO_2/ 之外放置，不然每次建置時，都會多複製這些無用的檔案，徒耗時間。\
+只是目前 .git/ 是免不了的。 
+
+前述的 codebuild_build.sh 執行時會轉成原始 docker 指令後執行，\
+所以也可以直接下這個 docker 指令來執行 codebuild 建置作業:
+
+.. code-block:: bash
+
+    $ docker run -it -v /var/run/docker.sock:/var/run/docker.sock \
+    -e "IMAGE_NAME=aws/codebuild/ubuntu:std2.0" \
+    -e "ARTIFACTS=/Users/hoamon/VSCProjects/out/" \
+    -e "SOURCE=/Users/hoamon/VSCProjects/REPO_1/"
+    -e "SECONDARY_SOURCE_1=repo_2:/Users/hoamon/VSCProjects/REPO_2" \
+    -e "BUILDSPEC=/Users/hoamon/VSCProjects/REPO_1/docs/buildspec.yml" \
+    -v "/Users/hoamon/VSCProjects:/LocalBuild/envFile/" \
+    -e "ENV_VAR_FILE=variables.env" \
+    -e "AWS_CONFIGURATION=/Users/hoamon/.aws" \
+    -e "INITIATOR=hoamon" \
+    amazon/aws-codebuild-local:latest # 此為初始啟動 codebuild 作業的 container image;
+    # 而 IMAGE_NAME=aws/codebuild/ubuntu:std2.0 指的是建置用的 container image
+
+    Removing network agent-resources_default
+    Removing volume agent-resources_source_volume
+    Removing volume agent-resources_user_volume
+    Creating network "agent-resources_default" with the default driver
+    Creating volume "agent-resources_source_volume" with local driver
+    Creating volume "agent-resources_user_volume" with local driver
+    Creating agent-resources_agent_1 ... done
+    Creating agent-resources_build_1 ... done
+    Attaching to agent-resources_agent_1, agent-resources_build_1
+    agent_1  | [Container] 2019/12/03 09:25:33 Waiting for agent ping
+    ...
+    ...
+    upload: _build/html/search.html to s3://our-docs.ho600.com/DOC1/4403d49a263188df01687d059eb39e36305caec7/search.html
+    upload: _build/html/searchindex.js to s3://our-docs.ho600.com/DOC1/4403d49a263188df01687d059eb39e36305caec7/searchindex.js
+    upload: _build/html/_downloads/fa72967150e33f4d81f38f26a4d57edf/20190721-schema-graph-image.png to s3://our-docs.ho600.com/DOC1/4403d49a263188df01687d059eb39e36305caec7/_downloads/fa72967150e33f4d81f38f26a4d57edf/20190721-schema-graph-image.png
+    agent_1  | 
+    agent_1  | [Container] 2019/12/03 09:28:40 Phase complete: BUILD State: SUCCEEDED
+    agent_1  | [Container] 2019/12/03 09:28:40 Phase context status code:  Message: 
+    agent_1  | [Container] 2019/12/03 09:28:40 Entering phase POST_BUILD
+    agent_1  | [Container] 2019/12/03 09:28:40 Phase complete: POST_BUILD State: SUCCEEDED
+    agent_1  | [Container] 2019/12/03 09:28:40 Phase context status code:  Message: 
+    agent-resources_agent_1 exited with code 0
+    Stopping agent-resources_build_1 ... done
+    Aborting on container exit...
+    $ 
+
+**值得注意** 的是，我們在本機端建置用的 container image 是基於 aws/codebuild/ubuntu:std2.0 版，\
+這個 image 必須與我們在 AWS codebuild console 中所執行作業採用的 image 一致，\
+這樣才能避免因為兩者 image 不同下，本機端建置成果與 AWS 平台建置成果不一致。
+
+若是在 AWS 平台建置時，對於 container image 有特殊需求，例如: 須安裝 Django-2.2.6 及其他函式庫，\
+但又不想每次建置都要重覆執行安裝這些函式庫。那可以 aws/codebuild/ubuntu:std2.0 為基礎，\
+訂製新版 image ，並 push 到 AWS ECR ，讓 AWS codebuild 及本機端同時使用相同的 container image 。
+
 結合 Jenkins 執行 local codebuild 作業
 -------------------------------------------------------------------------------
 
