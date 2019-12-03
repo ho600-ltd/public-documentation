@@ -46,6 +46,7 @@ ho600 文件集
     technology_sharing/from_pg_to_mariadb
     technology_sharing/how_to_get_a_plus_rating_on_ssllabs_com
     technology_sharing/how_to_use_paypal_to_receive_a_payment_on_the_fixed_amount_from_outside_of_tw
+    technology_sharing/execute_local_aws_codebuild_project
 
 .. toctree::
     :maxdepth: 1
