@@ -1,17 +1,17 @@
-如何在 Jenkins 伺服器執行本地端的 AWS codebuild 專案建置 Sphinx 式文件網站?
+如何在 Jenkins 伺服器執行本地端的 AWS CodeBuild 專案建置 Sphinx 式文件網站?
 ===============================================================================
 
 .. note::
 
-    本文閱讀對象: 能在 AWS codebuild console 操作建置作業。
+    本文閱讀對象: 能在 AWS CodeBuild console 操作建置作業。
 
 在軟體建置的方法上，敝司的操作經驗可以分成下列幾種:
 
 1. 全部由 Jenkins 建置
 #. 部份由 Atlassian Pipelines 建置，另外由 Jenkins 建置
-#. 部份由 AWS codebuild 建置，另外由 Jenkins 建置
-#. 全部由 AWS codebuild 建置
-    * 在開發者本機端，則由 Jenkins 啟動 codebuild 建置
+#. 部份由 AWS CodeBuild 建置，另外由 Jenkins 建置
+#. 全部由 AWS CodeBuild 建置
+    * 在開發者本機端，則由 Jenkins 啟動 CodeBuild 建置
 
 **第 1 種** 是敝司最早期的建置方式，在 AWS EC2 上安裝設定 1 台 Jenkins 伺服器，\
 讓它把軟體建置加發佈一次跑完。
@@ -39,15 +39,15 @@
 
 Codebuild 的計價方式是以每分鐘為單位，而我們在進行程式碼測試時，\
 需要將正式資料庫備份到測試資料庫上，這裡的處置工作，在 CPU/記憶體上的用量不高，\
-但耗費時間較久，用 codebuild 處理不划算。另外在建置階段，\
+但耗費時間較久，用 CodeBuild 處理不划算。另外在建置階段，\
 敝司也分成「本機端建置」與「伺服器端建置」，前者是由開發者在自己的開發平台上建置，\
 第一時間驗證開發者自己寫的程式碼是否有問題。\
 後者是在大家共用的伺服器上建置，這樣才能保有「明確、公用」的建置紀錄，\
 在協作工作中，才能有「共通」的用語去指涉目標程式碼。
 
-本文針對第 4 種方法中的開發者本機端如何使用 codebuild 建置 Sphinx-based 文件專案來作說明。
+本文針對第 4 種方法中的開發者本機端如何使用 CodeBuild 建置 Sphinx-based 文件專案來作說明。
 
-在 AWS console 執行 codebuild 作業
+在 AWS console 執行 CodeBuild 作業
 -------------------------------------------------------------------------------
 
 下列是敝司其中一個 sphinx-based 文件庫所自帶的 buildspec.yml:
@@ -94,7 +94,7 @@ Codebuild 的計價方式是以每分鐘為單位，而我們在進行程式碼�
 line 13 的目的，是在解壓縮某些私密的金錀。因為自動化建置、發佈所使用的程式碼儲存位置多是版本控制器，\
 並不合適直接將這些隱私資訊以明碼方式放入版本控制器中。常規作法，是把它們用密語壓成 zip 檔，\
 再儲存該 zip 檔到版本控制器上，另外把解密密語置入環境變數中。\
-以此例來說， ${SSH_KEY_PASSWORD} 就是 AWS codebuild 專案的環境變數之一。
+以此例來說， ${SSH_KEY_PASSWORD} 就是 AWS CodeBuild 專案的環境變數之一。
 
 line 23 的目的是嵌入建置資訊到成果網站，\
 如: `https://www.ho600.com/__version__.json <https://www.ho600.com/__version__.json>`_ 。
@@ -106,20 +106,20 @@ line 23 的目的是嵌入建置資訊到成果網站，\
 line 27 中的 requirements.txt 是 $CODEBUILD_SRC_2_DIR 的相依函式庫設定檔， \
 line 29 則是本文件庫所需引入的相依函式庫，內容物通常只有 Sphinx==X.Y.Z 而已。
 
-妥善編輯完 buildspec.yml 後，請先在 AWS codebuild console 中完成成功的建置工作，\
+妥善編輯完 buildspec.yml 後，請先在 AWS CodeBuild console 中完成成功的建置工作，\
 以確認 buildspec.yml 的格式及相關設定是正確的。
 
-在命令列執行 local codebuild 作業
+在命令列執行 local CodeBuild 作業
 -------------------------------------------------------------------------------
 
-AWS codebuild 執行建置作業是以 Docker 為基礎，\
+AWS CodeBuild 執行建置作業是以 Docker 為基礎，\
 每一次的建置都是拿某個 Docker image 生成的 container 來執行 buildspec.yml 中的步驟，\
 敝司預設是使用 Ubuntu 18.04 的 \
 `aws/codebuild/standard:2.0 <https://github.com/aws/aws-codebuild-docker-images/tree/master/ubuntu/standard/2.0>`_ \
 映像檔(image)。如果程式碼是基於 Windows 或其他平台開發，\
 也有 `其他映像檔 <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html>`_ 可以挑選。
 
-而在本機端執行 codebuild 建置時，它也是以 Docker 為基礎作建置，\
+而在本機端執行 CodeBuild 建置時，它也是以 Docker 為基礎作建置，\
 所以是啟動一個 Docker container 去啟動另一個 Docker container 來執行 buildspec.yml 設定。\
 當然，若是你的建置作業成果就是要打造一個 Docker image ，\
 那就有 3 層 Docker container 同時在本機端運作。
@@ -226,36 +226,186 @@ AWS codebuild 執行建置作業是以 Docker 為基礎，\
     $ 
 
 **值得注意** 的是，我們在本機端建置用的 container image 是基於 aws/codebuild/ubuntu:std2.0 版，\
-這個 image 必須與我們在 AWS codebuild console 中所執行作業採用的 image 一致，\
+這個 image 必須與我們在 AWS CodeBuild console 中所執行作業採用的 image 一致，\
 這樣才能避免因為兩者 image 不同下，本機端建置成果與 AWS 平台建置成果不一致。
 
 若是在 AWS 平台建置時，對於 container image 有特殊需求，例如: 須安裝 Django-2.2.6 及其他函式庫，\
 但又不想每次建置都要重覆執行安裝這些函式庫。那可以 aws/codebuild/ubuntu:std2.0 為基礎，\
-訂製新版 image ，並 push 到 AWS ECR ，讓 AWS codebuild 及本機端同時使用相同的 container image 。
+訂製新版 image ，並 push 到 AWS ECR ，讓 AWS CodeBuild 及本機端同時使用相同的 container image 。
 
-結合 Jenkins 執行 local codebuild 作業
+結合 Jenkins 執行 local CodeBuild 作業
 -------------------------------------------------------------------------------
+
+前一節中，我們已經可以在命令列執行 local CodeBuild 專案的建置作業，\
+成功模擬 AWS 平台上的 CodeBuild 建置作業。
+
+使用純命令列麻煩的是，每次在操作時，\
+就要用 history|grep "codebuild_build.sh" 來找出參數，\
+如果開發者手頭只管理一個軟體專案，那這個 **呀雜** 的動作還能接受，\
+但事實上，只管一個專案的可能性很低，以敝司來說，平均每個工程師關係 6 個以上的專案，\
+且同一個專案還分為「正常網站」及「測試網站」，\
+有的「測試網站」還分為「功能測試網站」及「發佈測試網站」，\
+這樣在建置層級，就關係到 12 個以上的網站。
+
+在 AWS 平台上，可以在 CodeBuild console 總覽所有軟體專案的建置作業，\
+那在本機端，我們就利用 Jenkins 來統籌所有建置作業。
+
+下面簡單說明 Jenkins 伺服器的安裝、設定步驟，\
+安裝檔請至 `https://jenkins.io/download/ <https://jenkins.io/download/>`_ 下載:
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins01.png
+    :align: center
+    :width: 600px
+
+    閱讀說明
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins02.png
+    :align: center
+    :width: 600px
+
+    閱讀軟體許可協議
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins03.png
+    :align: center
+    :width: 600px
+
+    同意軟體許可協議
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins04.png
+    :align: center
+    :width: 600px
+
+    同意安裝
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins05.png
+    :align: center
+    :width: 600px
+
+    安裝完成
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins06.png
+    :align: center
+    :width: 600px
+
+    以 sudo cat /Users/Shared/Jenkins/Home/secrets/initialAdminPassword 指令來驗證得到「電腦系統管理員」身份，以設定 Jenkins 伺服器
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins07.png
+    :align: center
+    :width: 600px
+
+    安裝建議的套件
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins08.png
+    :align: center
+    :width: 600px
+
+    安裝套件中
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins09.png
+    :align: center
+    :width: 600px
+
+    新增 Jenkins 伺服器的「網站管理員身份」
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins10.png
+    :align: center
+    :width: 600px
+
+    以 http://localhost:8080/ 為 Jenkins 伺服器的瀏覽網址
+
+.. figure:: execute_local_aws_codebuild_project/Jenkins11.png
+    :align: center
+    :width: 600px
+
+    完成設定，並可啟動 Jenkins 伺服器
+
+請以「網站管理員」登入 http://localhost:8080/ 後，並新增一項作業:
+
+1. 點擊「新增作業」
+#. 作業命名，建議同 AWS CodeBuild 上的作業同名
+#. 作業類型請選「建置 Free-Style 軟體專案」
+#. 點擊「Ok」按鈕以新增作業，接下來，會直接跳到作業設定頁
+#. 原始碼管理請選取「無」
+#. 建置環境可勾選「Color ANSI Console Output」，並在 ANSI color map 選取 xterm 。需安裝 AnsiColor 套件，方有此設定
+#. 「建置」區塊，請在新增建置步驟上選取「執行 Shell」，執行 Shell 的指令區塊要填入「啟動 docker 的指令」，容後說明
+#. 按下「儲存」按鈕
+
+前述所談的「啟動 docker 的指令」並不是把 /Users/xxx/bin/codebuild_build.sh -i ... 或是 docker -it ... 直接代入即可。\
+因為 Jenkins 伺服器的運作身份是 jenkins ，而先前所使用的啟動 docker 指令都是以一般使用者的身份去執行的， \
+Docker images 的擁有者也是一般使用者。所以比較便宜行事的方式，\
+就是讓 jenkins 用戶可以轉成一般使用者身份去執行「啟動 docker 指令」。
+
+首先，調整系統權限，在 /etc/sudoers 增加一行設定如下:
 
 .. code-block:: text
 
-    LOCAL_CODEBUILD_IMAGE_NAME="amazon/aws-codebuild-local:latest"
-    BUILD_IMAGE_NAME="ho600/docker-hub:ubuntu2.0"
-    EXCUTOR="hoamon"
-    AWS_CONFIGURATION_DIR="/Users/hoamon/.aws"
+    jenkins    ALL=(hoamon) NOPASSWD: /usr/local/bin/docker # jenkins 用戶可以從 ALL host 登入後，以 hoamon 身份，無需密碼去執行 /usr/local/bin/docker 指令。
 
-    SOURCE_DIR="/Users/hoamon/VSCProjects"
-    REPOSITORY_NAME="dominate-bc-aws"
-    BUILDSPEC_FILE="docs/buildspec.yml"
+這樣，「啟動 docker 指令」就可填入如下:
+
+.. code-block:: bash
+
+    sudo -u hoamon docker run \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e "IMAGE_NAME=aws/codebuild/ubuntu:std2.0" \
+    -e "ARTIFACTS=/Users/hoamon/VSCProjects/out/" \
+    -e "SOURCE=/Users/hoamon/VSCProjects/REPO_1/"
+    -e "SECONDARY_SOURCE_1=repo_2:/Users/hoamon/VSCProjects/REPO_2" \
+    -e "BUILDSPEC=/Users/hoamon/VSCProjects/REPO_1/docs/buildspec.yml" \
+    -v "/Users/hoamon/VSCProjects:/LocalBuild/envFile/" \
+    -e "ENV_VAR_FILE=variables.env" \
+    -e "AWS_CONFIGURATION=/Users/hoamon/.aws" \
+    -e "INITIATOR=hoamon" \
+    amazon/aws-codebuild-local:latest
+
+與先前指令相較，要移除 **-it** 參數。 i 代表會詢問用戶輸入值， t 代表使用 tty 為終端介面。\
+此兩者都無法在 jenkins 作業中使用。
+
+到這裡就完成以 Jenkins 控管 local CodeBuild 作業的操作。而敝司在實務上，\
+為方便更有效率管理這些建置作業，會讓「啟動 docker 指令」以如下形式填入:
+
+.. code-block:: bash
+
+    /Users/hoamon/VSCProjects/My_Software_Project/bin/jenkins_execute_local_codebuild.sh \
+    "amazon/aws-codebuild-local:latest" \
+    "ho600/docker-hub:ubuntu2.0" \
+    "hoamon" \
+    "/Users/hoamon/.aws" \
+    "/Users/hoamon/VSCProjects" \
+    "My_Software_Project" \
+    "docs/buildspec.yml" \
+    "repo_2" \
+    "/Users/hoamon/VSCProjects" \
+    "REPO_2" \
+    "\*\*\*" \
+    "APK\*\*\*"
+
+這樣在不同的 jenkins 作業中，「啟動 docker 指令」的內容都會是類似的，\
+而我們可以把專案條件差異的部份在 jenkins_execute_local_codebuild.sh 中處理:
+
+.. code-block:: bash
+
+    #!/bin/zsh
+    # /Users/hoamon/VSCProjects/My_Software_Project/bin/jenkins_execute_local_codebuild.sh
+
+    LOCAL_CODEBUILD_IMAGE_NAME=$1 #"amazon/aws-codebuild-local:latest"
+    BUILD_IMAGE_NAME=$2 #"ho600/docker-hub:ubuntu2.0"
+    EXCUTOR=$3 #"hoamon"
+    AWS_CONFIGURATION_DIR=$4 #"/Users/hoamon/.aws"
+
+    SOURCE_DIR=$5 #"/Users/hoamon/VSCProjects"
+    REPOSITORY_NAME=$6 #"My_Software_Project"
+    BUILDSPEC_FILE=$7 #"docs/buildspec.yml"
 
 
-    SECONDARY_SOURCE_1="CODEBUILD_SRC_2"
-    SOURCE_2_DIR="/Users/hoamon/VSCProjects"
-    REPOSITORY_2_NAME="cash-flow-2"
+    SECONDARY_SOURCE_1=$8 #"repo_2"
+    SOURCE_2_DIR=$9 #"/Users/hoamon/VSCProjects"
+    REPOSITORY_2_NAME=${10} #"REPO_2"
+
+    SSH_KEY_PASSWORD=${11} #"\*\*\*"
+    SSH_KEY_ID=${12} #"APK\*\*\*"
 
     ARTIFACTS=${SOURCE_DIR}"/artifacts_out"
-
-    SSH_KEY_PASSWORD="..."
-    SSH_KEY_ID="APK..."
 
     cat << EOF > ${REPOSITORY_NAME}.env
     WHATEVER=_WHATVALUE_
@@ -263,7 +413,8 @@ AWS codebuild 執行建置作業是以 Docker 為基礎，\
     SSH_KEY_ID=${SSH_KEY_ID}
     EOF
 
-    sudo -u ${EXCUTOR} docker run -v /var/run/docker.sock:/var/run/docker.sock \
+    sudo -u ${EXCUTOR} /usr/local/bin/docker run \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     -e "IMAGE_NAME=${BUILD_IMAGE_NAME}" \
     -e "ARTIFACTS=${ARTIFACTS}" \
     -e "SOURCE=${SOURCE_DIR}/${REPOSITORY_NAME}" \
@@ -273,3 +424,6 @@ AWS codebuild 執行建置作業是以 Docker 為基礎，\
     -e "ENV_VAR_FILE=${REPOSITORY_NAME}.env" \
     -e "AWS_CONFIGURATION=${AWS_CONFIGURATION_DIR}" \
     -e "INITIATOR=${EXCUTOR}" ${LOCAL_CODEBUILD_IMAGE_NAME}
+
+而且 jenkins_execute_local_codebuild.sh 有在 git 儲存庫中追蹤，若有建置問題，\
+也好查明問題點。
