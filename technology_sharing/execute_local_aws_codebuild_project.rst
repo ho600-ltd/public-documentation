@@ -427,3 +427,11 @@ Docker images 的擁有者也是一般使用者。所以比較便宜行事的方
 
 而且 jenkins_execute_local_codebuild.sh 有在 git 儲存庫中追蹤，若有建置問題，\
 也好查明問題點。
+
+.. figure:: execute_local_aws_codebuild_project/JenkinsBuilds.png
+    :align: center
+    :width: 600px
+
+    Jenkins builds 列表
+
+如上圖，我們可以在 Jenkins 網站中，清楚看到過去的本機端建置作業歷程。
