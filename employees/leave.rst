@@ -11,13 +11,39 @@
 在資遣或員工口頭表示辭職後，即可開始停用員工帳號:
 
 * email at ho600.com
+    1. reset account name
+    #. remove his/her alias mail name, and make his/her mail name alias to the existing user
+    #. reset password
+    #. remove application password
+    #. disable
 * remove bitbucket account permissions
-* remove AWS(own and customer's) account permissions
-* remove employee info on our web site
-* remove account in our deployment server
-* remove account in our VPN server
-* remove account in our rfwp/dev-rfwp server
+    1. reset password
+* remove github account permissions
+    1. reset password
 * remove account in this employee's working sites
+    1. jirasoftware
+    #. confluence
+    #. bbk
+* remove tXXXl account permissions
+    1. reset password
+* remove the permissions from facebook developer
+* reset twXXXXo token
+* reset api_key in our developing/production server
+* remove AWS(own and customer's) account permissions
+    1. reset password
+    #. disable ACCESS_KEY and SSH_KEY_ID
+    #. remove his/her IPs from security-groups
+    #. disable console usage
+* remove the employee info on our web site
+* remove accounts in our development-associated servers, reset ACCESS_KEY, api_key, token and remove INTERNAL_IPS in the settings of our proprietors' testing/production servers(check the list of projects in Jenkins/CodeBuild):
+    * reset password
+    * reset ACCESS_KEY
+    * reset API token
+    * disable account
+    * in testing servers:
+        * Profile.objects.all().update(verify_key_value='xxx')
+        * User.objects.all().update(password=md5(str(random()).encode('utf-8')))
+* remove accounts in our VPN servers
 
 ==== ========================== ======== =============================================
 項次 項目                       完成日期 說明
@@ -77,6 +103,9 @@
 資遣費                                         7,659
 ============================================== ================================
                     
+3C補助餘額試算
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 代支費用試算
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
