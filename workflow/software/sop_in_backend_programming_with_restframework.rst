@@ -84,7 +84,13 @@ Browsable Api
 但 RESTFramework 的 Browsable Api 是必備的。
 
 待完成開發階段，發佈至「正式網站」時，再依「服務提供性質」，\
-適當地移除或是保留 Browsable Api 頁面。
+適當地移除或是保留 Browsable Api 頁面，例如採用下列語法:
+
+.. code-block:: python
+
+    class MyModelModelViewSet(viewsets.ModelViewSet):
+        renderer_classes = (JSONRenderer, MyBrowsableAPIRenderer,
+                            ) if settings.DEBUG else (JSONRenderer, )
 
 Avoid to expose information too much
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
