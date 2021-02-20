@@ -94,7 +94,7 @@ Bitbucket/Github 都有在專案中分離 wiki 為獨立的儲存庫，我們會
 
 一個 Django-based 軟體專案的相關資料夾及檔案位置如下:
 
-.. code-block:: raw
+.. code-block:: text
 
     <project-repository>/
         .<project-repository>-env/

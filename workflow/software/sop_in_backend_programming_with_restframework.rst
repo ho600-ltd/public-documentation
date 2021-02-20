@@ -8,23 +8,24 @@ The SOP for backend programming with django-restframework
     本文件的閱讀對象為敝司業主、潛在業主、熱忱的未來應聘者及任何對敝司抱有興趣之活人，\
     目的乃宣揚敝司管理制度及經營理念。敝司員工當以 private-docs/software/sop_in_backend_programming_with_restframework.rst 為執行準則。
 
-在 Restframework 的框架下，每個 Api Endpoint 的建立，應利用以下幾個制式的類別組合而成:
+在 django-restframework 的框架下，每個 Api Endpoint 的建立，應利用以下幾個制式的類別組合而成:
 
-* Put Classes inherit rest_framework.serializers.\*Serializer in serializers.py
-* Put Classes inherit rest_framework.\*permissions in permissions.py
-* Put Classes inherit rest_framework.renderers.\*Renderer/rest_pandas.renderers.\*Renderer\* in renderers.py
-* Put Classes inherit django_filters.rest_framework.\*Filter\*/rest_framework_filters.\*Filter\*/... in filters.py
-* Put Classes inherit rest_framework.viewsets.\*ViewSet\*/rest_pandas.views.\*ViewSet\*/... in views.py
-* Put rest_framework.routers.\*Router\* instances in urls.py
+* In permissions.py, put Classes inherited from rest_framework.\*permissions
+* In serializers.py, put Classes inherited from rest_framework.serializers.\*Serializer
+* In filters.py, put Classes inherited from django_filters.rest_framework.\*Filter\* or rest_framework_filters.\*Filter\*/...
+* In renderers.py, put Classes inherited from rest_framework.renderers.\*Renderer or rest_pandas.renderers.\*Renderer\*
+* In responses.py, put Classes inherited from rest_framework.response.\*Response\*
+* In views.py, put Classes inherited from rest_framework.viewsets.\*ViewSet\* or rest_pandas.views.\*ViewSet\*/...
+* In urls.py, put Classes inherited from rest_framework.routers.\*APIRootView\* and rest_framework.routers.\*Router\* instances
 
 最終得到 https://example.domain.name/whaterver-app/whatever-module/whatever-tag/whatever-version/whatever-model/ 的 endpoint 網址。
 
-每一個 Endpoint ，慣例上，應該要對應一個 Model ，或是某條件下被 filter 過的 Model 。
+每一個 Endpoint ，慣例上，應該要對應一個 Model ，或是某條件下被 filter 過的 object set 。
 
 Browsable Api
 -------------------------------------------------------------------------------
 
-**具備 Browsable Api 功能** 是 django-restframework 優於 tastypie 的最大特點，\
+**具備 Browsable Api 功能** 是 django-restframework 優於 django-tastypie 的最大特點，\
 第二特點才是「前者使用人數 **遠高** 於後者」。
 
 以下是最精簡建構一個 Browsable Api 所需的相關程式碼:
@@ -45,12 +46,15 @@ Browsable Api
     # views.py
     from django.conf import settings
     from rest_framework.renderers import BrowsableAPIRenderer
+    from rest_framework.permissions import IsAuthenticated
     from my.models import MyModel
     from my.filters import MyFilter
     from my.serializers import MySerializer
+    from my.permissions import MyPermission
     class MyBrowsableAPIRenderer(BrowsableAPIRenderer):
         template = "some-where/api.html"
-    class MyViewSet(viewsets.ModelViewSet):
+    class MyModelModelViewSet(viewsets.ModelViewSet):
+        permission_classes = (IsAuthenticated, MyPermission)
         queryset = MyModel.objects.all()
         filter_class = MyFilter
         serializer_class = MySerializer
@@ -58,12 +62,35 @@ Browsable Api
                             ) if settings.DEBUG else (JSONRenderer, )
         http_method_names = ('get', )
 
+    # urls.py
+    from django.urls import include, re_path
+    from rest_framework import routers
+    from my.views import MyModelModelViewSet
+    class MyRouter(routers.DefaultRouter):
+        pass 
+    router = MyRouter()
+    router.register(r'mymodel', views.MyModelModelViewSet, basename="mymodel")
+    version = 'v1'
+    urlpatterns = [
+        re_path(r'^api/{}/'.format(version),
+                include((router.urls, "myapi"),
+                        namespace="myapi")),
+    ]
+
+    #INFO Endpoint of MyModel: https://example.domain.name/whaterver-app/my/api/v1/mymodel/ 
+
 在開發階段， **必定要使用 RESTFramework 的 Browsable Api 頁面進行自身 Api 的測試** ，\
 而不依賴外部 Api 工具，如: Postman 。外部 Api 工具可以作雙重驗證使用，\
 但 RESTFramework 的 Browsable Api 是必備的。
 
 待完成開發階段，發佈至「正式網站」時，再依「服務提供性質」，\
-適當地移除或是保留 Browsable Api 頁面。
+適當地移除或是保留 Browsable Api 頁面，例如採用下列語法:
+
+.. code-block:: python
+
+    class MyModelModelViewSet(viewsets.ModelViewSet):
+        renderer_classes = (JSONRenderer, MyBrowsableAPIRenderer,
+                            ) if settings.DEBUG else (JSONRenderer, )
 
 Avoid to expose information too much
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
