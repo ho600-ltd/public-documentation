@@ -166,3 +166,17 @@ texinfo_documents = [
      author, 'public-docs', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+#-- Options for latex output ----------------------------
+latex_engine = 'xelatex'
+latex_use_xindy = False
+latex_elements = {
+  'preamble': r'''
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=Noto Sans CJK TC, ItalicFont=Noto Serif CJK TC]{Noto Sans CJK TC}
+\setCJKsansfont{Noto Sans CJK TC}
+\setCJKmonofont{Noto Sans Mono CJK TC}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+''',
+}
